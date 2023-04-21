@@ -1,27 +1,33 @@
 import React from 'react';
 
-const PizzaBlock = () => {
+const PizzaBlock = ({ category, id, imageUrl, price, rating, sizes, title, types }) => {
+  const [activeId, setActiveId] = React.useState(0);
+  const [thickness, setThickness] = React.useState(0);
+
+  const typeName = ['тонкое', 'традиционное'];
+
   return (
     <div className="pizza-block">
-      <img
-        className="pizza-block__image"
-        src="https://dodopizza-a.akamaihd.net/static/Img/Products/Pizza/ru-RU/b750f576-4a83-48e6-a283-5a8efb68c35d.jpg"
-        alt="Pizza"
-      />
-      <h4 className="pizza-block__title">Чизбургер-пицца</h4>
+      <img className="pizza-block__image" src={imageUrl} alt="Pizza" />
+      <h4 className="pizza-block__title">{title}</h4>
       <div className="pizza-block__selector">
         <ul>
-          <li className="active">тонкое</li>
-          <li>традиционное</li>
+          {types.map((typeId, i) => (
+            <li key={i} className={thickness === i ? 'active' : ''} onClick={() => setThickness(i)}>
+              {typeName[typeId]}
+            </li>
+          ))}
         </ul>
         <ul>
-          <li className="active">26 см.</li>
-          <li>30 см.</li>
-          <li>40 см.</li>
+          {sizes.map((el, i) => (
+            <li key={i} className={activeId === i ? 'active' : ''} onClick={() => setActiveId(i)}>
+              {el} см.
+            </li>
+          ))}
         </ul>
       </div>
       <div className="pizza-block__bottom">
-        <div className="pizza-block__price">от 395 ₽</div>
+        <div className="pizza-block__price">от {price} ₽</div>
         <div className="button button--outline button--add">
           <svg
             width="12"
