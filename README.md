@@ -12,3 +12,6 @@ _ 🛠 Technologies:
 - React Pagination (pagination)
 - Lodash.Debounce
 - Code Splitting, React Loadable, useWhyDidYouUpdate
+
+Before starting the project, do not forget to do _ npm i 
+To start a project you can use _ npm run start
