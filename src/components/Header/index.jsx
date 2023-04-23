@@ -7,12 +7,12 @@ const Header = () => {
   return (
     <div className="header">
       <div className="container">
-        <Link Link to="/">
+        <Link to="/">
           <div className="header__logo">
             <img width="38" src={logo} alt="Pizza logo" />
             <div>
-              <h1>React Pizza</h1>
-              <p>самая вкусная пицца во вселенной</p>
+              <h1>Home Pizza</h1>
+              <p> вкуснейшая пицца на материке</p>
             </div>
           </div>
         </Link>
