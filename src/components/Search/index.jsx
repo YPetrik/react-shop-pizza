@@ -2,9 +2,13 @@ import React from 'react';
 
 import { FiSearch, FiX } from 'react-icons/fi';
 
+import { SearchContext } from '../../App';
+
 import style from './Search.module.scss';
 
-const Search = ({ searchValue, setSearchValue }) => {
+const Search = () => {
+  const { searchValue, setSearchValue } = React.useContext(SearchContext);
+
   return (
     <div className={style.wrapper}>
       <FiSearch className={style.wrapper__icon} />

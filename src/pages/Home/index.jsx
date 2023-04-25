@@ -7,8 +7,10 @@ import PizzaBlock from '../../components/PizzaBlock';
 import Skeleton from '../../components/PizzaBlock/Skeleton';
 
 import axios from 'axios';
+import { SearchContext } from '../../App';
 
-const Home = ({ searchValue }) => {
+const Home = () => {
+	const { searchValue } = React.useContext(SearchContext)
   const [arrPizzas, setArrPizzas] = React.useState([]);
   const [isLoading, setIsLoading] = React.useState(false);
   const [currentPage, setCurrentPage] = React.useState(1);
