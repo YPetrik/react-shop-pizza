@@ -1,0 +1,32 @@
+.wrapper {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+  padding: 20px 50px;
+
+  a {
+    font-weight: 600;
+    font-size: 14px;
+    line-height: 12px;
+    border: 1px solid #fe5f1e;
+    border-radius: 51%;
+    padding: 10px 15px;
+    margin-right: 8px;
+    cursor: pointer;
+
+    &:hover {
+      background-color: #fe5f1e;
+      color: #fff;
+    }
+  }
+
+  :global {
+    .selected {
+      a {
+        background-color: #fe5f1e;
+        color: #fff;
+      }
+    }
+  }
+}
