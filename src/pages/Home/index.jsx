@@ -7,18 +7,29 @@ import PizzaBlock from '../../components/PizzaBlock';
 import Skeleton from '../../components/PizzaBlock/Skeleton';
 
 import axios from 'axios';
+
 import { SearchContext } from '../../App';
 
+import { setCategoryId } from '../../redux/slices/filterSlice';
+import { useDispatch, useSelector } from 'react-redux';
+
 const Home = () => {
-	const { searchValue } = React.useContext(SearchContext)
+  const dispatch = useDispatch();
+
+  const categoryId = useSelector((state) => state.filter.categoryId);
+
+  const { searchValue } = React.useContext(SearchContext);
   const [arrPizzas, setArrPizzas] = React.useState([]);
   const [isLoading, setIsLoading] = React.useState(false);
   const [currentPage, setCurrentPage] = React.useState(1);
-  const [categoryId, setCategoryId] = React.useState(0);
   const [sortType, setSortType] = React.useState({
     name: 'популярности',
     sortProperty: 'rating',
   });
+
+  const onChangeCategory = (i) => {
+    dispatch(setCategoryId(i));
+  };
 
   const getFetchData = async () => {
     setIsLoading(true);
@@ -47,7 +58,7 @@ const Home = () => {
   return (
     <div className="container">
       <div className="content__top">
-        <Categories value={categoryId} onChangeCategory={(i) => setCategoryId(i)} />
+        <Categories value={categoryId} onChangeCategory={onChangeCategory} />
         <Sort value={sortType} onChangeSort={(i) => setSortType(i)} />
       </div>
       <h2 className="content__title">Все пиццы</h2>
