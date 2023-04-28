@@ -1,19 +1,34 @@
-import React, { useRef } from 'react';
+import React from 'react';
 
 import { FiSearch, FiX } from 'react-icons/fi';
+import debounce from 'lodash.debounce';
 
 import { SearchContext } from '../../App';
 
 import style from './Search.module.scss';
 
 const Search = () => {
-  const { searchValue, setSearchValue } = React.useContext(SearchContext);
+  const { setSearchValue } = React.useContext(SearchContext);
+  const [value, setValue] = React.useState('');
 
-  const inputRef = useRef();
+  const inputRef = React.useRef();
+
+  const updateSearchVAlue = React.useCallback(
+    debounce((str) => {
+      setSearchValue(str);
+    }, 250),
+    [],
+  );
 
   const onClickClear = () => {
     setSearchValue('');
+    setValue('');
     inputRef.current.focus();
+  };
+
+  const onChangeInput = (e) => {
+    setValue(e.target.value);
+    updateSearchVAlue(e.target.value);
   };
 
   return (
@@ -24,10 +39,10 @@ const Search = () => {
         className={style.wrapper__input}
         type="text"
         placeholder="Поиск пиццы ..."
-        value={searchValue}
-        onChange={(e) => setSearchValue(e.target.value)}
+        value={value}
+        onChange={onChangeInput}
       />
-      {searchValue && <FiX className={style.wrapper__delete} onClick={onClickClear} />}
+      {value && <FiX className={style.wrapper__delete} onClick={onClickClear} />}
     </div>
   );
 };
