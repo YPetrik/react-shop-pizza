@@ -10,22 +10,25 @@ import axios from 'axios';
 
 import { SearchContext } from '../../App';
 
-import { setCategoryId } from '../../redux/slices/filterSlice';
+import { setCategoryId, setCurrentPage } from '../../redux/slices/filterSlice';
 import { useDispatch, useSelector } from 'react-redux';
 
 const Home = () => {
   const dispatch = useDispatch();
 
-  const { categoryId, sort } = useSelector((state) => state.filter);
+  const { categoryId, sort, currentPage } = useSelector((state) => state.filter);
 
   const { searchValue } = React.useContext(SearchContext);
 
   const [arrPizzas, setArrPizzas] = React.useState([]);
   const [isLoading, setIsLoading] = React.useState(false);
-  const [currentPage, setCurrentPage] = React.useState(1);
 
   const onChangeCategory = (i) => {
     dispatch(setCategoryId(i));
+  };
+
+  const onChangePage = (number) => {
+    dispatch(setCurrentPage(number));
   };
 
   const getFetchData = async () => {
@@ -64,11 +67,7 @@ const Home = () => {
           ? [...new Array(10)].map((_, index) => <Skeleton key={index} />)
           : arrPizzas.map((obj, id) => <PizzaBlock key={id} {...obj} />)}
       </div>
-      <Pagination
-        currentPage={currentPage}
-        setCurrentPage={setCurrentPage}
-        onChangePage={(number) => setCurrentPage(number)}
-      />
+      <Pagination currentPage={currentPage} onChangePage={onChangePage} />
     </div>
   );
 };
