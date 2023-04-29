@@ -24,11 +24,15 @@ const Sort = () => {
   };
 
   React.useEffect(() => {
-    document.body.addEventListener('click', (e) => {
+    const handleClickOutside = (e) => {
       if (!e.composedPath().includes(sortRef.current)) {
         setOpen(false);
       }
-    });
+    };
+    document.body.addEventListener('click', handleClickOutside);
+
+    return () => document.body.removeEventListener('click', handleClickOutside);
+		
   }, []);
 
   return (
