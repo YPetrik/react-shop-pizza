@@ -47,14 +47,15 @@ const Home = () => {
     const search = searchValue ? `&search=${searchValue}` : '';
 
     try {
-      const { data } = await axios.get(
+      const { data } = await axios(
         `https://641fd25482bea25f6df5717d.mockapi.io/items?page=${currentPage}&limit=4&category=${category}&sortBy=${sortBy}&order=${order}${search}
 				`,
       );
       setArrPizzas(data);
-      setIsLoading(false);
     } catch (error) {
-      console.log(error);
+      console.log('ERROR', error);
+    } finally {
+      setIsLoading(false);
     }
   };
 

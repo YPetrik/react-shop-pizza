@@ -7,7 +7,6 @@ const typeName = ['тонкое', 'традиционное'];
 
 const PizzaBlock = ({ category, id, imageUrl, price, rating, sizes, title, types }) => {
   const dispatch = useDispatch();
-console.log(sizes)
   const [activeType, setActiveType] = React.useState(0);
   const [activeSize, setActiveSize] = React.useState(0);
   const [pizzaCount, setPizzaCount] = React.useState(0);
