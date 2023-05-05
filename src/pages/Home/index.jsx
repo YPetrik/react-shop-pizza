@@ -16,6 +16,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
 
 import { sortList } from '../../components/Sort';
+import { setItems } from '../../redux/slices/pizzaSlice';
 
 const Home = () => {
   const dispatch = useDispatch();
@@ -24,10 +25,11 @@ const Home = () => {
   const isMounted = React.useRef(false);
 
   const { categoryId, sort, currentPage } = useSelector((state) => state.filter);
+  const data = useSelector((state) => state.pizza.items);
+
 
   const { searchValue } = React.useContext(SearchContext);
 
-  const [arrPizzas, setArrPizzas] = React.useState([]);
   const [isLoading, setIsLoading] = React.useState(false);
 
   const onChangeCategory = (i) => {
@@ -51,7 +53,7 @@ const Home = () => {
         `https://641fd25482bea25f6df5717d.mockapi.io/items?page=${currentPage}&limit=4&category=${category}&sortBy=${sortBy}&order=${order}${search}
 				`,
       );
-      setArrPizzas(data);
+			dispatch(setItems(data))
     } catch (error) {
       console.log('ERROR', error);
     } finally {
@@ -107,7 +109,7 @@ const Home = () => {
       <div className="content__items">
         {isLoading
           ? [...new Array(10)].map((_, index) => <Skeleton key={index} />)
-          : arrPizzas.map((obj, id) => <PizzaBlock key={id} {...obj} />)}
+          : data?.map((obj, id) => <PizzaBlock key={id} {...obj} />)}
       </div>
       <Pagination currentPage={currentPage} onChangePage={onChangePage} />
     </div>
