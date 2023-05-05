@@ -7,7 +7,7 @@ const typeName = ['тонкое', 'традиционное'];
 
 const PizzaBlock = ({ category, id, imageUrl, price, rating, sizes, title, types }) => {
   const dispatch = useDispatch();
-
+console.log(sizes)
   const [activeType, setActiveType] = React.useState(0);
   const [activeSize, setActiveSize] = React.useState(0);
   const [pizzaCount, setPizzaCount] = React.useState(0);
@@ -22,7 +22,7 @@ const PizzaBlock = ({ category, id, imageUrl, price, rating, sizes, title, types
       price,
       imageUrl,
       type: typeName[activeType],
-      size: activeSize,
+      sizes: sizes[activeSize],
     };
     dispatch(addItem(item));
     setPizzaCount((prev) => prev + 1);
@@ -43,7 +43,7 @@ const PizzaBlock = ({ category, id, imageUrl, price, rating, sizes, title, types
           ))}
         </ul>
         <ul>
-          {sizes.map((el, i) => (
+          {sizes?.map((el, i) => (
             <li
               key={i}
               className={activeType === i ? 'active' : ''}

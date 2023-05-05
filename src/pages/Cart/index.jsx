@@ -5,10 +5,22 @@ import { Link } from 'react-router-dom';
 
 import CartItem from '../../components/CartItem';
 import { clearItems } from '../../redux/slices/cartSlice';
+import CartEmpty from '../../components/CartEmpty';
 
 const Cart = () => {
   const dispatch = useDispatch();
   const { items, totalPrice } = useSelector((state) => state.cart);
+  const totalCount = items.reduce((sum, item) => sum + item.count, 0);
+
+  const onClickClear = () => {
+    if (window.confirm('Empty trash?')) {
+      dispatch(clearItems());
+    }
+  };
+
+  if (!totalPrice) {
+    return <CartEmpty />;
+  }
 
   return (
     <div className="container container--cart">
@@ -42,7 +54,7 @@ const Cart = () => {
             </svg>
             Корзина
           </h2>
-          <div className="cart__clear">
+          <div className="cart__clear" onClick={onClickClear}>
             <svg
               width="20"
               height="20"
@@ -84,7 +96,7 @@ const Cart = () => {
         <div className="cart__bottom">
           <div className="cart__bottom-details">
             <span>
-              Всего пицц: <b> {items.reduce((sum, el) => el.count + sum, 0)} шт.</b>
+              Всего пицц: <b> {totalCount} шт.</b>
             </span>
             <span>
               Сумма заказа: <b> {items.length === 0 ? 0 : totalPrice} ₽</b>
