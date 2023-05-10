@@ -10,12 +10,17 @@ import qs from 'qs';
 
 import { SearchContext } from '../../App';
 
-import { setCategoryId, setCurrentPage, setFilters } from '../../redux/slices/filterSlice';
+import {
+  selectFilter,
+  setCategoryId,
+  setCurrentPage,
+  setFilters,
+} from '../../redux/slices/filterSlice';
 import { useDispatch, useSelector } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
 
 import { sortList } from '../../components/Sort';
-import { fetchPizzas } from '../../redux/slices/pizzaSlice';
+import { fetchPizzas, selectPizzaData } from '../../redux/slices/pizzaSlice';
 
 const Home = () => {
   const dispatch = useDispatch();
@@ -23,11 +28,9 @@ const Home = () => {
   const isSearch = React.useRef(false);
   const isMounted = React.useRef(false);
 
-  const { categoryId, sort, currentPage } = useSelector((state) => state.filter);
-  const { items, status } = useSelector((state) => state.pizza);
-
+  const { categoryId, sort, currentPage } = useSelector(selectFilter);
+  const { items, status } = useSelector(selectPizzaData);
   const { searchValue } = React.useContext(SearchContext);
-
 
   const onChangeCategory = (i) => {
     dispatch(setCategoryId(i));
@@ -38,7 +41,6 @@ const Home = () => {
   };
 
   const getPizzas = async () => {
-
     const category = categoryId > 0 ? categoryId : '';
     const order = sort.sortProperty.includes('-') ? 'asc' : 'desc';
     const sortBy = sort.sortProperty.replace('-', '');
