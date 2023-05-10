@@ -8,8 +8,6 @@ import Skeleton from '../../components/PizzaBlock/Skeleton';
 
 import qs from 'qs';
 
-import { SearchContext } from '../../App';
-
 import {
   selectFilter,
   setCategoryId,
@@ -28,9 +26,8 @@ const Home = () => {
   const isSearch = React.useRef(false);
   const isMounted = React.useRef(false);
 
-  const { categoryId, sort, currentPage } = useSelector(selectFilter);
+  const { categoryId, sort, currentPage, searchValue } = useSelector(selectFilter);
   const { items, status } = useSelector(selectPizzaData);
-  const { searchValue } = React.useContext(SearchContext);
 
   const onChangeCategory = (i) => {
     dispatch(setCategoryId(i));
