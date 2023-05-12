@@ -15,7 +15,7 @@ import {
   setFilters,
 } from '../../redux/slices/filterSlice';
 import { useDispatch, useSelector } from 'react-redux';
-import { useNavigate } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 
 import { sortList } from '../../components/Sort';
 import { fetchPizzas, selectPizzaData } from '../../redux/slices/pizzaSlice';

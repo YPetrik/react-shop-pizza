@@ -2,6 +2,7 @@ import React from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 
 import { addItem, selectCartItemById } from '../../redux/slices/cartSlice';
+import { Link } from 'react-router-dom';
 
 const typeName = ['тонкое', 'традиционное'];
 
@@ -27,7 +28,8 @@ const PizzaBlock = ({ category, id, imageUrl, price, rating, sizes, title, types
     setPizzaCount((prev) => prev + 1);
   };
   return (
-    <div className="pizza-block">
+   <Link to={`/pizza/${id}`}>
+		 <div className="pizza-block">
       <img className="pizza-block__image" src={imageUrl} alt="Pizza" />
       <h4 className="pizza-block__title">{title}</h4>
       <div className="pizza-block__selector">
@@ -71,6 +73,7 @@ const PizzaBlock = ({ category, id, imageUrl, price, rating, sizes, title, types
         </div>
       </div>
     </div>
+	 </Link>
   );
 };
 
