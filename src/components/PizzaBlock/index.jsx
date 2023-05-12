@@ -28,10 +28,11 @@ const PizzaBlock = ({ category, id, imageUrl, price, rating, sizes, title, types
     setPizzaCount((prev) => prev + 1);
   };
   return (
-   <Link to={`/pizza/${id}`}>
-		 <div className="pizza-block">
-      <img className="pizza-block__image" src={imageUrl} alt="Pizza" />
-      <h4 className="pizza-block__title">{title}</h4>
+    <div className="pizza-block">
+      <Link to={`/pizza/${id}`}>
+        <img className="pizza-block__image" src={imageUrl} alt="Pizza" />
+        <h4 className="pizza-block__title">{title}</h4>
+      </Link>
       <div className="pizza-block__selector">
         <ul>
           {types.map((typeId, i) => (
@@ -54,6 +55,7 @@ const PizzaBlock = ({ category, id, imageUrl, price, rating, sizes, title, types
           ))}
         </ul>
       </div>
+
       <div className="pizza-block__bottom">
         <div className="pizza-block__price">от {price} ₽</div>
         <div className="button button--outline button--add" onClick={onClickAdd}>
@@ -68,12 +70,12 @@ const PizzaBlock = ({ category, id, imageUrl, price, rating, sizes, title, types
               fill="white"
             />
           </svg>
+
           <span>Добавить</span>
           {addedCount > 0 && <i>{addedCount}</i>}
         </div>
       </div>
     </div>
-	 </Link>
   );
 };
 
