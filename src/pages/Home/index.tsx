@@ -20,7 +20,7 @@ import { Link, useNavigate } from 'react-router-dom';
 import { sortList } from '../../components/Sort';
 import { fetchPizzas, selectPizzaData } from '../../redux/slices/pizzaSlice';
 
-const Home = () => {
+const Home: React.FC = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const isSearch = React.useRef(false);
@@ -29,11 +29,11 @@ const Home = () => {
   const { categoryId, sort, currentPage, searchValue } = useSelector(selectFilter);
   const { items, status } = useSelector(selectPizzaData);
 
-  const onChangeCategory = (i) => {
+  const onChangeCategory = (i: number) => {
     dispatch(setCategoryId(i));
   };
 
-  const onChangePage = (number) => {
+  const onChangePage = (number: number) => {
     dispatch(setCurrentPage(number));
   };
 
@@ -44,6 +44,7 @@ const Home = () => {
     const search = searchValue ? `&search=${searchValue}` : '';
 
     dispatch(
+      //@ts-ignore
       fetchPizzas({
         category,
         order,
@@ -107,7 +108,7 @@ const Home = () => {
         ) : status === 'loading' ? (
           [...new Array(10)].map((_, index) => <Skeleton key={index} />)
         ) : (
-          items?.map((obj, id) => <PizzaBlock key={id} {...obj} />)
+          items?.map((obj: any, id: number) => <PizzaBlock key={id} {...obj} />)
         )}
       </div>
       <Pagination currentPage={currentPage} onChangePage={onChangePage} />

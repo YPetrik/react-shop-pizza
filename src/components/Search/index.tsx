@@ -8,17 +8,15 @@ import { useDispatch } from 'react-redux';
 import { setSearchValue } from '../../redux/slices/filterSlice';
 import { useLocation } from 'react-router-dom';
 
-const Search = () => {
+const Search: React.FC = () => {
   const dispatch = useDispatch();
-  const [value, setValue] = React.useState('');
-  const inputRef = React.useRef();
+  const [value, setValue] = React.useState<string>('');
+  const inputRef = React.useRef<HTMLInputElement>(null);
   const { pathname } = useLocation();
-	const newPath = pathname.split('').slice(0, -1).join('')
-
-
+  const newPath: string = pathname.split('').slice(0, -1).join('');
 
   const updateSearchVAlue = React.useCallback(
-    debounce((str) => {
+    debounce((str: string) => {
       dispatch(setSearchValue(str));
     }, 250),
     [],
@@ -27,10 +25,10 @@ const Search = () => {
   const onClickClear = () => {
     setSearchValue('');
     setValue('');
-    inputRef.current.focus();
+    inputRef.current?.focus();
   };
 
-  const onChangeInput = (e) => {
+  const onChangeInput = (e: any) => {
     setValue(e.target.value);
     updateSearchVAlue(e.target.value);
   };
@@ -50,7 +48,9 @@ const Search = () => {
           />
           {value && <FiX className={style.wrapper__delete} onClick={onClickClear} />}
         </div>
-      ): ''}
+      ) : (
+        ''
+      )}
     </>
   );
 };

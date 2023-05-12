@@ -4,7 +4,12 @@ import ReactPaginate from 'react-paginate';
 
 import style from './Pagination.module.scss';
 
-const Pagination = ({ currentPage, onChangePage }) => {
+type PaginationProps = {
+  currentPage: number;
+  onChangePage: any;
+};
+
+const Pagination: React.FC<PaginationProps> = ({ currentPage, onChangePage }) => {
   return (
     <>
       <ReactPaginate
@@ -18,7 +23,7 @@ const Pagination = ({ currentPage, onChangePage }) => {
         // previousLabel={<FiChevronsLeft />}
         forcePage={currentPage - 1} // говорит на какой странице погинации мы будем при рендаринге
         previousLabel="<"
-        renderOnZeroPageCount={null}
+        // renderOnZeroPageCount={null}
       />
     </>
   );
